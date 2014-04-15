@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <typeAlias alias="DateTime" type="org.joda.time.DateTime" />
+        <typeAlias alias="SlaJobEntity" type="com.dianping.dpmoniter.entity.SlaJobEntity" />
+        <typeAlias alias="SlaEntity" type="com.dianping.dpmoniter.entity.SlaEntity" />
+        <typeAlias alias="SlaFailRecordEntity" type="com.dianping.dpmoniter.entity.SlaFailRecordEntity" />
+        <typeAlias alias="BottleneckTaskEntity" type="com.dianping.dpmoniter.entity.BottleneckTaskEntity" />
+
+
+    </typeAliases>
+
+    <typeHandlers>
+        <typeHandler javaType="DateTime" jdbcType="TIMESTAMP" handler="com.dianping.dpmoniter.service.SqlTimestampTypeHandler" />
+    </typeHandlers>
+
+    <mappers>
+        <mapper resource="mybatis/mapper/SlaMapper.xml" />
+    </mappers>
+</configuration>

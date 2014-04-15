@@ -1,0 +1,7 @@
+/target
+/.settings
+/.classpath
+/.project
+/.externalToolBuilders
+/.idea
+.DS_Store

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-2.5.xsd
+						http://www.springframework.org/schema/aop
+						http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+						http://www.springframework.org/schema/tx
+						http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+    <context:annotation-config/>
+    <context:component-scan base-package="com.dianping"/>
+    <aop:aspectj-autoproxy/>
+
+    <!--<context:property-placeholder location="classpath:spring/dbconf_online.properties" />-->
+    <context:property-placeholder location="classpath:spring/dbconf.properties"/>
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${jdbc.driver}"></property>
+        <property name="jdbcUrl" value="${jdbc.url}"></property>
+        <property name="user" value="${jdbc.username}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+        <!-- 初始化的连接数，该值应该在minPoolSize和maxPoolSize之间 -->
+        <property name="initialPoolSize" value="${jdbc.initialPoolSize}"></property>
+        <property name="minPoolSize" value="${jdbc.minPoolSize}"></property>
+        <!-- 连接池中最大连接数 -->
+        <property name="maxPoolSize" value="${jdbc.maxPoolSize}"></property>
+        <!-- 最大空闲时间，60s内未使用的连接被丢弃，若为0则永不丢弃 -->
+        <property name="maxIdleTime" value="${jdbc.maxIdleTime}"></property>
+        <!-- 当连接池中连接耗尽时，c3p0一次性获取的连接数 -->
+        <property name="acquireIncrement" value="${jdbc.acquireIncrement}"></property>
+        <property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}"></property>
+        <!-- 从数据库中获取新连接失败后重复尝试的次数 -->
+        <property name="acquireRetryAttempts" value="${jdbc.acquireRetryAttempts}"></property>
+        <!-- 连接失败后引起所有等待连接池来获取连接的线程抛出异常 -->
+        <property name="breakAfterAcquireFailure" value="${jdbc.breakAfterAcquireFailure}"></property>
+        <!-- 控制数据源内加载的PreparedStatements的数量-->
+        <property name="maxStatements" value="${jdbc.maxStatements}"></property>
+        <property name="testConnectionOnCheckout" value="${jdbc.testConnectionOnCheckout}"></property>
+    </bean>
+
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+    </bean>
+    <!-- MYSQL - SLA -->
+    <bean id="SlaMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+        <property name="mapperInterface" value="com.dianping.dpmoniter.mapper.SlaMapper" />
+    </bean>
+</beans>
