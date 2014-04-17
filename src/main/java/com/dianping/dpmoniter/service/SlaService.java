@@ -119,6 +119,7 @@ public class SlaService {
         }
     }
     private List<Map<String, Object>> getTaskStatusHis(String date, List<Integer> task_id) {
+        System.out.println(task_id.size());
         return slaMapper.getJobRunHis(date,task_id);
     }
     public List<Map<String, Object>> getStatusHis(String date) {
