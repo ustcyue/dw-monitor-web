@@ -13,7 +13,10 @@
     <script src="lib/ace/js/ace-elements.min.js"></script>
     <script src="lib/ace/js/ace.min.js"></script>
     <script src="lib/ace/js/bootbox.min.js"></script>
+    <script type="text/javascript" src="resource/js/lib/raphael.2.1.0.min.js"></script>
+    <script type="text/javascript" src="resource/js/lib/justgage.1.0.1.min.js"></script>
 
+    <script type="text/javascript" src="resource/js/moniter-center.js"></script>
     <!-- page specific plugin styles -->
 
     <!-- fonts -->
@@ -49,7 +52,7 @@
             <ul class="nav ace-nav">
                 <li class="light-blue">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                        <img class="nav-user-photo" src="lib/ace/avatars/user.jpg" alt="Jason's Photo" />
+                        <img class="nav-user-photo" src="lib/ace/avatars/user.jpg" alt="Jason's Photo"/>
 								<span class="user-info">
 									<small>Welcome,</small>
 									Jason
@@ -59,7 +62,7 @@
                     <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                         <li>
                             <a href="#">
-                                <i class="icon-off"></i>  Logout
+                                <i class="icon-off"></i> Logout
                             </a>
                         </li>
                     </ul>
@@ -126,6 +129,25 @@
         }
     </script>
 
+</div>
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+        <ul class="breadcrumb">
+            <li class="active">
+                <i class="icon-home home-icon"></i>
+                <a href="http://mercury.dp/">监控中心</a>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <div id = "slaclk" style="width:400px; height:320px"></div>
+    </div>
 </div>
 </body>
 </html>
