@@ -7,6 +7,9 @@
  */
 var slaPageViewDate = getformattedDate();
 $(function () {
+    /**
+     * 初始化table和partition
+     * */
     var $datepicker = $('#run-date').val(getformattedDate());
     $datepicker.datepicker({
         format: 'yyyy-mm-dd'

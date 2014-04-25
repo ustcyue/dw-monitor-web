@@ -132,6 +132,12 @@ public class SlaService {
         }
     }
 
+    public List<Map<String, Object>> getSlaStatusHis(){
+        DateTime now = new DateTime();
+        now = now.minusDays(10);
+        String timeId = now.toString("yyyy-MM-dd");
+        return slaMapper.getSlaHis(timeId);
+    }
 
 
 

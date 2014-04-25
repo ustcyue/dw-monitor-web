@@ -38,7 +38,6 @@ public class SlaAction {
     @Autowired
     private SlaService slaService;
 
-
     private JSONObject jsonObject;
 
     private List<SlaEntity> slaLists = new ArrayList<SlaEntity>();
@@ -136,5 +135,19 @@ public class SlaAction {
         return this.jsonObject;
     }
 
-
+    @GET
+    @Path("/getSlaStatusHis")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JSONObject getSlaStatusHis(
+        @Context HttpServletRequest request
+    ){
+        List<Map<String, Object>> slaHis = slaService.getSlaStatusHis();
+        if(slaHis.size() == 0){
+            throw new RuntimeException("sla历史状态信息获取失败");
+        }
+        System.out.println(slaHis.size());
+        JSONArray jArray = JSONArray.fromObject(slaHis.toArray());
+        this.jsonObject = CommonUtil.getPubJson(jArray);
+        return this.jsonObject;
+    }
 }

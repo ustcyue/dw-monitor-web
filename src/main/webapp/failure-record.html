@@ -7,29 +7,36 @@
 
     <!-- basic styles -->
     <script type="text/javascript" src="resource/js/lib/jquery-1.9.1.min.js"></script>
-    <link href="lib/ace/css/bootstrap.min.css" rel="stylesheet"/>
-    <script src="lib/ace/js/ace-extra.min.js"></script>
-    <link rel="stylesheet" href="lib/ace/css/font-awesome.min.css"/>
+    <script type="text/javascript" src="lib/ace/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="lib/ace/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="lib/ace/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="lib/ace/js/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="lib/ace/js/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="lib/ace/js/bootbox.min.js"></script>
     <script src="lib/ace/js/ace-elements.min.js"></script>
     <script src="lib/ace/js/ace.min.js"></script>
-    <script src="lib/ace/js/bootbox.min.js"></script>
-    <script type="text/javascript" src="resource/js/lib/raphael.2.1.0.min.js"></script>
-    <script type="text/javascript" src="resource/js/lib/justgage.1.0.1.min.js"></script>
-    <script type="text/javascript" src="resource/js/lib/Chart.js"></script>
-    <script type="text/javascript" src="resource/js/moniter-center.js"></script>
+
+    <!--<link href="lib/ace/css/bootstrap.min.css" rel="stylesheet"/>-->
+    <link rel="stylesheet" href="lib/ace/css/fullcalendar.css" />
+    <link rel="stylesheet" href="lib/ace/css/font-awesome.min.css"/>
+    <script type="text/javascript" src="resource/js/failure-record.js"></script>
     <!-- page specific plugin styles -->
 
     <!-- fonts -->
-    <script src="lib/ace/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="lib/ace/css/ace-fonts.css"/>
 
     <!-- ace styles -->
-
     <link rel="stylesheet" href="lib/ace/css/ace.min.css"/>
     <link rel="stylesheet" href="lib/ace/css/ace-rtl.min.css"/>
     <link rel="stylesheet" href="lib/ace/css/ace-skins.min.css"/>
 
     <link rel="stylesheet" href="resource/css/moniter-center.css">
+    <style>
+        #sla-dataTable_wrapper > div.row {
+            height: 42px;
+        }
+
+    </style>
 </head>
 <body>
 <div class="navbar navbar-default" id="navbar">
@@ -83,17 +90,16 @@
         } catch (e) {
         }
     </script>
-
     <ul class="nav nav-list">
 
-        <li class="active">
+        <li>
             <a href="moniter-center.html">
                 <i class="icon-book"></i>
                 <span class="menu-text">监控中心主页</span>
             </a>
         </li>
 
-        <li class="">
+        <li class="active open">
             <a href="#" class="dropdown-toggle">
                 <i class="icon-dashboard"></i>
                 <span class="menu-text">SLA任务详情</span>
@@ -101,9 +107,9 @@
                 <b class="arrow icon-angle-down"></b>
             </a>
 
-            <ul class="submenu" style="display: none;">
-                <li>
-                    <a href="sla-lists.html">
+            <ul class="submenu" style="display: block;">
+                <li class = "active">
+                    <a href="#">
                         <i class="icon-double-angle-right"></i>
                         实时状态列表
                     </a>
@@ -133,7 +139,7 @@
     </script>
 
 </div>
-<div class="main-content">
+<div class="main-content" style="background-color: white">
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
             try {
@@ -142,32 +148,24 @@
             }
         </script>
         <ul class="breadcrumb">
-            <li class="active">
+            <li>
                 <i class="icon-home home-icon"></i>
                 <a href="moniter-center.html">监控中心</a>
             </li>
+            <li class="active">
+                <a href="failure-record.html">失败任务</a>
+            </li>
         </ul>
     </div>
-    <div class = "mid-div">
-        <div id = "slaclk" class = "left-right-align" style="width:400px; height:320px"></div>
-        <div id = "stabclk" class = "left-right-align" style="width:400px; height:320px; margin-left: 50px"></div>
-    </div>
-    <div class = "mid-div-smallmargin">
-        <canvas id="myChart" class = "left-right-align" width="800" height="200"></canvas>
-        <div class = "left-right-align">
-            <table style="border-collapse: separate; border-spacing: 2px">
-                <tbody>
-                    <tr>
-                        <td width = "30" style = "background-color: #AAAAAA" height="20"></td>
-                        <td height="20" aligh = "left">稳定性</td>
-                    </tr>
-                    <tr>
-                        <td width = "30" style = "background-color: #97BBCD" height="20"></td>
-                        <td height="20" aligh = "left">一致性</td>
-                    </tr>
-                </tbody>
-            </table>
+    <div>
+        <div class="page-header position-relative">
+            <h1>Full Calendar <small><i class="icon-double-angle-right"></i> with draggable and editable events</small></h1>
+        </div><!--/page-header-->
+        <div class="span9" style="width: 800px;  margin: 20px 30px 30px 10px">
+            <div class="space"></div>
+            <div id='calendar'></div>
         </div>
+
     </div>
 </div>
 </body>
