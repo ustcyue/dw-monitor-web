@@ -139,6 +139,9 @@ public class SlaService {
         return slaMapper.getSlaHis(timeId);
     }
 
+    public List<Map<String, Object>> getEvents(String begin, String end){
+        return slaMapper.getSlaEvents(begin, end);
+    }
 
 
 }

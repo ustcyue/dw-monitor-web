@@ -39,4 +39,5 @@ public interface SlaMapper {
     List<BottleneckTaskEntity> getdelayinfo(@Param("timeId") String timeId);
     List<Map<String,Object>> getJobRunHis(@Param("timeId") String timeId, @Param("keyTaskId") List<Integer> keyTaskId);
     List<Map<String,Object>> getSlaHis(@Param("timeId") String timeId);
+    List<Map<String, Object>> getSlaEvents(@Param("begin") String begin,@Param("end") String end);
 }

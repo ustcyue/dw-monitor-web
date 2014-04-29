@@ -150,4 +150,18 @@ public class SlaAction {
         this.jsonObject = CommonUtil.getPubJson(jArray);
         return this.jsonObject;
     }
+
+    @GET
+    @Path("/getFailEvents/{start}/{end}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JSONObject getFailEvents(
+            @DefaultValue("aa") @PathParam("start") String start
+            ,@DefaultValue("aa") @PathParam("end") String end
+            ,@Context HttpServletRequest request
+    ){
+        List<Map<String, Object>> slaEvents = slaService.getEvents(start, end);
+        JSONArray jArray = JSONArray.fromObject(slaEvents.toArray());
+        this.jsonObject = CommonUtil.getPubJson(jArray);
+        return this.jsonObject;
+    }
 }

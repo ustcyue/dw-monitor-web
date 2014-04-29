@@ -182,4 +182,11 @@
          group by time_id
          order by time_id
     </select>
+
+    <select id="getSlaEvents" parameterType="Map" resultType="Map">
+        select event_id,event_type,event_level, title,start_time,end_time
+        from
+        mn_sla_events where
+        event_date between #{begin} and #{end}
+    </select>
 </mapper>
