@@ -9,8 +9,7 @@
         <typeAlias alias="SlaEntity" type="com.dianping.dpmoniter.entity.SlaEntity" />
         <typeAlias alias="SlaFailRecordEntity" type="com.dianping.dpmoniter.entity.SlaFailRecordEntity" />
         <typeAlias alias="BottleneckTaskEntity" type="com.dianping.dpmoniter.entity.BottleneckTaskEntity" />
-
-
+        <typeAlias alias="SlaEventEntity" type="com.dianping.dpmoniter.entity.SlaEventEntity"/>
     </typeAliases>
 
     <typeHandlers>

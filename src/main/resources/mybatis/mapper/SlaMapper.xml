@@ -52,7 +52,15 @@
         <result property="abnormal" column="abnormal" />
     </resultMap>
 
-
+    <resultMap id="slaEventMap" type="SlaEventEntity">
+        <result property="eventId" column="event_id"/>
+        <result property="title" column="title" />
+        <result property="eventDate" column="event_date" />
+        <result property="startTime" column="start_time" />
+        <result property="endTime" column="end_time" />
+        <result property="eventLevel" column="event_level" />
+        <result property="eventType" column="event_type" />
+    </resultMap>
 
     <select id="getSlaJobs" resultMap="SlaJobEntityMap">
         SELECT a.sla_id, b.sla_type, b.job_value,a.sla_name,a.predict_time,a.key_task_id,a.task_id,a.task_name,a.task_status,a.warn_begin_time
