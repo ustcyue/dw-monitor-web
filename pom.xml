@@ -4,11 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.dianping.warehouse.dpmoniter</groupId>
-    <artifactId>dpmoniter</artifactId>
+    <groupId>com.dianping.warehouse.dpmonitor</groupId>
+    <artifactId>dpmonitor</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>dpmoniter</name>
+    <name>dpmonitor</name>
     <dependencies>
         <!-- spring -->
         <dependency>
@@ -211,7 +211,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>dpmoniter</finalName>
+        <finalName>dpmonitor</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

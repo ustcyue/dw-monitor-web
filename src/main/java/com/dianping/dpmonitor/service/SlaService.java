@@ -1,9 +1,9 @@
-package com.dianping.dpmoniter.service;
+package com.dianping.dpmonitor.service;
 
-import com.dianping.dpmoniter.entity.BottleneckTaskEntity;
-import com.dianping.dpmoniter.entity.SlaEntity;
-import com.dianping.dpmoniter.entity.SlaJobEntity;
-import com.dianping.dpmoniter.mapper.SlaMapper;
+import com.dianping.dpmonitor.entity.BottleneckTaskEntity;
+import com.dianping.dpmonitor.entity.SlaEntity;
+import com.dianping.dpmonitor.entity.SlaJobEntity;
+import com.dianping.dpmonitor.mapper.SlaMapper;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

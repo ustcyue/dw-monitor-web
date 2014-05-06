@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 						http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 						http://www.springframework.org/schema/context
@@ -9,9 +10,11 @@
 						http://www.springframework.org/schema/aop
 						http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
 						http://www.springframework.org/schema/tx
-						http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+						http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+						http://www.springframework.org/schema/task
+						http://www.springframework.org/schema/task/spring-task-3.0.xsd">
     <context:annotation-config/>
-    <context:component-scan base-package="com.dianping"/>
+    <context:component-scan base-package="com.dianping.dpmonitor"/>
     <aop:aspectj-autoproxy/>
 
     <!--<context:property-placeholder location="classpath:spring/dbconf_online.properties" />-->
@@ -48,6 +51,13 @@
     <!-- MYSQL - SLA -->
     <bean id="SlaMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
-        <property name="mapperInterface" value="com.dianping.dpmoniter.mapper.SlaMapper" />
+        <property name="mapperInterface" value="com.dianping.dpmonitor.mapper.SlaMapper" />
     </bean>
+    <task:annotation-driven/>
+    <task:scheduled-tasks>
+        <task:scheduled ref="slaJob" method="refreshing"
+                        cron="0 30 * * * ?" />
+        <task:scheduled ref="slaJob" method="refreshingHis"
+                        cron="0 59 * * * ?" />
+    </task:scheduled-tasks>
 </beans>

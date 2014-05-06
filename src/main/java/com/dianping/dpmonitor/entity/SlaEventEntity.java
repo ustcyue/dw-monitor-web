@@ -1,4 +1,4 @@
-package com.dianping.dpmoniter.entity;
+package com.dianping.dpmonitor.entity;
 
 /**
  * Created by xiaoning.yue on 2014/5/6.
@@ -7,8 +7,8 @@ public class SlaEventEntity {
     private int eventId;
     private String title;
     private String eventDate;
-    private int startTime;
-    private int endTime;
+    private long startTime;
+    private long endTime;
     private int eventLevel;
     private int eventType;
 
@@ -36,19 +36,19 @@ public class SlaEventEntity {
         this.eventDate = eventDate;
     }
 
-    public int getStartTime() {
+    public long getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(int startTime) {
+    public void setStartTime(long startTime) {
         this.startTime = startTime;
     }
 
-    public int getEndTime() {
+    public long getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(int endTime) {
+    public void setEndTime(long endTime) {
         this.endTime = endTime;
     }
 

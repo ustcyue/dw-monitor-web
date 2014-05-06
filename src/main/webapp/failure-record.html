@@ -14,6 +14,7 @@
     <script type="text/javascript" src="lib/ace/js/fullcalendar.min.js"></script>
     <script type="text/javascript" src="lib/ace/js/bootbox.min.js"></script>
     <script src="lib/ace/js/ace-elements.min.js"></script>
+    <script src="lib/ace/js/ace-extra.min.js"></script>
     <script src="lib/ace/js/ace.min.js"></script>
 
     <!--<link href="lib/ace/css/bootstrap.min.css" rel="stylesheet"/>-->
@@ -30,10 +31,13 @@
     <link rel="stylesheet" href="lib/ace/css/ace-rtl.min.css"/>
     <link rel="stylesheet" href="lib/ace/css/ace-skins.min.css"/>
 
-    <link rel="stylesheet" href="resource/css/moniter-center.css">
+    <link rel="stylesheet" href="resource/css/monitor-center.css">
     <style>
         #sla-dataTable_wrapper > div.row {
             height: 42px;
+        }
+        .fc-day-number{
+            font-size:17px
         }
 
     </style>
@@ -51,7 +55,7 @@
             <a href="#" class="navbar-brand">
                 <small>
                     <i class="icon-leaf"></i>
-                    DP-Moniter
+                    DP-monitor
                 </small>
             </a><!-- /.brand -->
         </div>
@@ -93,7 +97,7 @@
     <ul class="nav nav-list">
 
         <li>
-            <a href="moniter-center.html">
+            <a href="monitor-center.html">
                 <i class="icon-book"></i>
                 <span class="menu-text">监控中心主页</span>
             </a>
@@ -109,16 +113,16 @@
 
             <ul class="submenu" style="display: block;">
                 <li class = "active">
-                    <a href="#">
+                    <a href="sla-lists.html">
                         <i class="icon-double-angle-right"></i>
                         实时状态列表
                     </a>
                 </li>
 
                 <li>
-                    <a href="feedback.html">
+                    <a href="#">
                         <i class="icon-double-angle-right"></i>
-                        故障分析
+                        故障记录
                     </a>
                 </li>
             </ul>
@@ -150,18 +154,18 @@
         <ul class="breadcrumb">
             <li>
                 <i class="icon-home home-icon"></i>
-                <a href="moniter-center.html">监控中心</a>
+                <a href="monitor-center.html">监控中心</a>
             </li>
             <li class="active">
                 <a href="failure-record.html">失败任务</a>
             </li>
         </ul>
     </div>
-    <div>
+    <div style="">
         <div class="page-header position-relative" style="padding-top: 20px">
-            <h1>故障记录 <small></h1>
+            <h1>故障记录</h1>
         </div><!--/page-header-->
-        <div class="span9" style="width: 800px;  margin: 20px 30px 30px 10px">
+        <div class="span9" style="width: 70%;  margin:0px auto">
             <div class="space"></div>
             <div id='calendar'></div>
         </div>

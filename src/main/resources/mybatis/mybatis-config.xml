@@ -5,15 +5,15 @@
 <configuration>
     <typeAliases>
         <typeAlias alias="DateTime" type="org.joda.time.DateTime" />
-        <typeAlias alias="SlaJobEntity" type="com.dianping.dpmoniter.entity.SlaJobEntity" />
-        <typeAlias alias="SlaEntity" type="com.dianping.dpmoniter.entity.SlaEntity" />
-        <typeAlias alias="SlaFailRecordEntity" type="com.dianping.dpmoniter.entity.SlaFailRecordEntity" />
-        <typeAlias alias="BottleneckTaskEntity" type="com.dianping.dpmoniter.entity.BottleneckTaskEntity" />
-        <typeAlias alias="SlaEventEntity" type="com.dianping.dpmoniter.entity.SlaEventEntity"/>
+        <typeAlias alias="SlaJobEntity" type="com.dianping.dpmonitor.entity.SlaJobEntity" />
+        <typeAlias alias="SlaEntity" type="com.dianping.dpmonitor.entity.SlaEntity" />
+        <typeAlias alias="SlaFailRecordEntity" type="com.dianping.dpmonitor.entity.SlaFailRecordEntity" />
+        <typeAlias alias="BottleneckTaskEntity" type="com.dianping.dpmonitor.entity.BottleneckTaskEntity" />
+        <typeAlias alias="SlaEventEntity" type="com.dianping.dpmonitor.entity.SlaEventEntity"/>
     </typeAliases>
 
     <typeHandlers>
-        <typeHandler javaType="DateTime" jdbcType="TIMESTAMP" handler="com.dianping.dpmoniter.service.SqlTimestampTypeHandler" />
+        <typeHandler javaType="DateTime" jdbcType="TIMESTAMP" handler="com.dianping.dpmonitor.service.SqlTimestampTypeHandler" />
     </typeHandlers>
 
     <mappers>

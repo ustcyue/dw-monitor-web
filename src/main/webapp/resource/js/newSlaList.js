@@ -1,7 +1,7 @@
 /**
  * Created by xiaoning.yue on 2014/4/23.
  */
-var moniter_center_cdate = getformattedDate();
+var monitor_center_cdate = getformattedDate();
 $(document).ready( function () {
     var tableData = getSlaData();
     var table = $('#sla-dataTable').DataTable(
@@ -30,7 +30,7 @@ function getSlaData(){
         cache: false,
         type: 'get',
         dataType: "json",
-        url: "rest/sla/getSlaJobs/"+moniter_center_cdate,  //请求搜索的路径
+        url: "rest/sla/getSlaJobs/"+monitor_center_cdate,  //请求搜索的路径
         timeout: 5000,
         error: function () {              //请求失败处理函数
             alert("获取数据出错！");

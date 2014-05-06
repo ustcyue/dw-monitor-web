@@ -1,4 +1,4 @@
-package com.dianping.dpmoniter.service;
+package com.dianping.dpmonitor.service;
 
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;

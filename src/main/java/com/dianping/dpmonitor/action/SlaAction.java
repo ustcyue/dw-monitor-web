@@ -1,10 +1,10 @@
-package com.dianping.dpmoniter.action;
+package com.dianping.dpmonitor.action;
 
-import com.dianping.dpmoniter.common.CommonUtil;
-import com.dianping.dpmoniter.entity.BottleneckTaskEntity;
-import com.dianping.dpmoniter.entity.SlaEntity;
-import com.dianping.dpmoniter.entity.SlaJobEntity;
-import com.dianping.dpmoniter.service.SlaService;
+import com.dianping.dpmonitor.common.CommonUtil;
+import com.dianping.dpmonitor.entity.BottleneckTaskEntity;
+import com.dianping.dpmonitor.entity.SlaEntity;
+import com.dianping.dpmonitor.entity.SlaJobEntity;
+import com.dianping.dpmonitor.service.SlaService;
 import org.apache.log4j.Logger;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;

@@ -27,16 +27,29 @@ $(function() {
                         callback(events);
                     }
                 });
-            }
+            },
+            selectable: true,
+            editable:true
         });
 })
 
  function retriveEvents(data){
     var events = [];
     for (var i=0; i<data.length; i++){
+        var tagClass;
+        if(data[i].event_level == 2) {
+            tagClass = "label-important";
+        }
+        else{
+            tagClass = "label-yellow";
+        }
+        var startTime = new Date(data[i].start_time*1000);
+        var eventUrl = "slaJob-status.html?date="+startTime.Format("yyyy-MM-dd");
         events[i] = {
             title: data[i].title,
-            start: data[i].start_time
+            start: data[i].start_time,
+            className: tagClass,
+            url: eventUrl
         }
      }
      return events;

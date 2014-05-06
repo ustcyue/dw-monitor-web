@@ -10,7 +10,18 @@ $(function () {
     /**
      * 初始化table和partition
      * */
-    var $datepicker = $('#run-date').val(getformattedDate());
+    var urlDate = parserUrl("date");
+    if(urlDate!="none"){
+        slaPageViewDate = urlDate;
+        var $datepicker = $('#run-date').val(urlDate);
+        if(urlDate != getformattedDate()) {
+            $("#title").html('');
+            $("#title").append(slaPageViewDate + " SLA任务完成情况");
+        }
+    }
+    else {
+        var $datepicker = $('#run-date').val(getformattedDate());
+    }
     $datepicker.datepicker({
         format: 'yyyy-mm-dd'
     });
@@ -370,4 +381,28 @@ function escape(html) {
     var txt = document.createTextNode(html);
     elem.appendChild(txt);
     return elem.innerHTML;
+}
+
+function parserUrl(parm) {
+    var url = decodeURI(window.location.search);  //获得请求的url
+    if (url.indexOf('?') == -1) {
+        return 'none';
+    } else {
+        var args = url.split("?");
+        var params = args[1];
+        var paramsArray = params.split("&");
+        for (var i = 0; i < paramsArray.length; i++) {
+            params = paramsArray[i];
+            var arg = params.split("=");
+            if (arg.length <= 1) {
+
+            } else if (arg[0] == parm) {
+                var param = arg[1];
+                return param;
+            } else {
+                return 'none';
+            }
+        }
+    }
+    return 'none';
 }

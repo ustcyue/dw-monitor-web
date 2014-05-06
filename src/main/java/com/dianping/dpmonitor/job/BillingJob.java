@@ -1,4 +1,4 @@
-package com.dianping.dpmoniter.job;
+package com.dianping.dpmonitor.job;
 
 /**
  * Created with IntelliJ IDEA.

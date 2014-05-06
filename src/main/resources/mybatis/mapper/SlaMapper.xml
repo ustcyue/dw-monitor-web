@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.dianping.dpmoniter.mapper.SlaMapper">
+<mapper namespace="com.dianping.dpmonitor.mapper.SlaMapper">
     <sql id="table">mn_sla_report_list</sql>
 
     <resultMap id="SlaJobEntityMap" type="SlaJobEntity">
@@ -197,4 +197,16 @@
         mn_sla_events where
         event_date between #{begin} and #{end}
     </select>
+
+    <delete id="deleteEvent" parameterType="Map">
+        delete from mn_sla_events where
+        event_date = #{eventDate} and event_type = #{eventType}
+    </delete>
+
+    <insert id="insertSlaEvent" parameterType="SlaEventEntity">
+        INSERT INTO mn_sla_events
+        (title,event_date,event_type,event_level,start_time,end_time)
+        VALUES
+        (#{title},#{eventDate},#{eventType},#{eventLevel},#{startTime},#{endTime})
+    </insert>
 </mapper>

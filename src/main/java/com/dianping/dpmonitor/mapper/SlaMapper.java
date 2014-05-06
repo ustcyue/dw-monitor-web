@@ -1,8 +1,9 @@
-package com.dianping.dpmoniter.mapper;
+package com.dianping.dpmonitor.mapper;
 
-import com.dianping.dpmoniter.entity.BottleneckTaskEntity;
-import com.dianping.dpmoniter.entity.SlaEntity;
-import com.dianping.dpmoniter.entity.SlaJobEntity;
+import com.dianping.dpmonitor.entity.BottleneckTaskEntity;
+import com.dianping.dpmonitor.entity.SlaEntity;
+import com.dianping.dpmonitor.entity.SlaEventEntity;
+import com.dianping.dpmonitor.entity.SlaJobEntity;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -40,4 +41,6 @@ public interface SlaMapper {
     List<Map<String,Object>> getJobRunHis(@Param("timeId") String timeId, @Param("keyTaskId") List<Integer> keyTaskId);
     List<Map<String,Object>> getSlaHis(@Param("timeId") String timeId);
     List<Map<String, Object>> getSlaEvents(@Param("begin") String begin,@Param("end") String end);
+    Integer deleteEvent(@Param("eventDate") String eventDate, @Param("eventType") Integer eventType);
+    Integer insertSlaEvent(SlaEventEntity slaEventEntity);
 }

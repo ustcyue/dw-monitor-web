@@ -1,4 +1,4 @@
-package com.dianping.dpmoniter.entity;
+package com.dianping.dpmonitor.entity;
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,6 +1,6 @@
-package com.dianping.dpmoniter.action;
+package com.dianping.dpmonitor.action;
 
-import com.dianping.dpmoniter.service.SlaService;
+import com.dianping.dpmonitor.service.SlaService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

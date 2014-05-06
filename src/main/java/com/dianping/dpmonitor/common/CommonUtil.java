@@ -1,4 +1,4 @@
-package com.dianping.dpmoniter.common;
+package com.dianping.dpmonitor.common;
 
 import net.sf.json.JSONObject;
 
