@@ -203,10 +203,10 @@
         event_date = #{eventDate} and event_type = #{eventType}
     </delete>
 
-    <insert id="insertSlaEvent" parameterType="SlaEventEntity">
+    <insert id="insertSlaEvent" parameterType="SlaEventEntity"  useGeneratedKeys="true" keyProperty="eventId">
         INSERT INTO mn_sla_events
-        (title,event_date,event_type,event_level,start_time,end_time)
+        (event_id,title,event_date,event_type,event_level,start_time,end_time)
         VALUES
-        (#{title},#{eventDate},#{eventType},#{eventLevel},#{startTime},#{endTime})
+        (#{eventId},#{title},#{eventDate},#{eventType},#{eventLevel},#{startTime},#{endTime})
     </insert>
 </mapper>

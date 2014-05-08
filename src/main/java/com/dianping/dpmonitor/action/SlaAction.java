@@ -3,6 +3,7 @@ package com.dianping.dpmonitor.action;
 import com.dianping.dpmonitor.common.CommonUtil;
 import com.dianping.dpmonitor.entity.BottleneckTaskEntity;
 import com.dianping.dpmonitor.entity.SlaEntity;
+import com.dianping.dpmonitor.entity.SlaEventEntity;
 import com.dianping.dpmonitor.entity.SlaJobEntity;
 import com.dianping.dpmonitor.service.SlaService;
 import org.apache.log4j.Logger;
@@ -21,6 +22,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -162,6 +164,33 @@ public class SlaAction {
         List<Map<String, Object>> slaEvents = slaService.getEvents(start, end);
         JSONArray jArray = JSONArray.fromObject(slaEvents.toArray());
         this.jsonObject = CommonUtil.getPubJson(jArray);
+        return this.jsonObject;
+    }
+
+    @POST
+    @Path("/InsertEvent")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String, Object> updateMart(
+            @DefaultValue("") @FormParam("title") String title,
+            @DefaultValue("0") @FormParam("start") long start,
+            @DefaultValue("0") @FormParam("end") long end,
+            @DefaultValue("0") @FormParam("level") int level,
+            @DefaultValue("2") @FormParam("type") int type,
+            @Context HttpServletRequest request
+    ){
+        SlaEventEntity event = new SlaEventEntity();
+        event.setTitle(title);
+        event.setStartTime(start);
+        event.setEndTime(end);
+        event.setEventLevel(level);
+        event.setEventType(type);
+        DateTime today = new DateTime(start*1000);
+        event.setEventDate(today.toString("yyyy-MM-dd"));
+        log.info("inserting new user defined event:" + event.getTitle()) ;
+        int id = slaService.insertEvent(event);
+        this.jsonObject = new JSONObject();
+        this.jsonObject.put("msg",200);
+        this.jsonObject.put("id",id);
         return this.jsonObject;
     }
 }

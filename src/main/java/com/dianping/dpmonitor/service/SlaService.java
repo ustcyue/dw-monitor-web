@@ -2,6 +2,7 @@ package com.dianping.dpmonitor.service;
 
 import com.dianping.dpmonitor.entity.BottleneckTaskEntity;
 import com.dianping.dpmonitor.entity.SlaEntity;
+import com.dianping.dpmonitor.entity.SlaEventEntity;
 import com.dianping.dpmonitor.entity.SlaJobEntity;
 import com.dianping.dpmonitor.mapper.SlaMapper;
 import org.joda.time.DateTime;
@@ -142,6 +143,10 @@ public class SlaService {
     public List<Map<String, Object>> getEvents(String begin, String end){
         return slaMapper.getSlaEvents(begin, end);
     }
-
+    public int insertEvent(SlaEventEntity event){
+        slaMapper.insertSlaEvent(event);
+        System.out.println(event.getEventId());
+        return event.getEventId();
+    }
 
 }

@@ -11,7 +11,7 @@
     </context-param>
     <context-param>
         <param-name>log4jConfigLocation</param-name>
-        <param-value>classpath:log4j/log4j_test.properties</param-value>
+        <param-value>classpath:log4j/log4j_online.properties</param-value>
     </context-param>
 
     <listener>
