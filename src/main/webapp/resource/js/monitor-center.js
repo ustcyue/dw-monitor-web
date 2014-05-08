@@ -9,7 +9,7 @@ $(function () {
     for(var i = 0; i<slaHis.length; i++){
         xArray[i] = slaHis[i].time_id;
         stabArray[i] = slaHis[i].succ_rate*100;
-        accuArray[i] = Math.random()*50+50;
+        accuArray[i] = Math.random()*5+95;
         if(i == slaHis.length -1){
             var curStabValue = Math.round(stabArray[i]*100/100);
             var curAccuValue = Math.round(accuArray[i]*100/100)
