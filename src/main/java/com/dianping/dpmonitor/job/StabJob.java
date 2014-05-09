@@ -95,7 +95,7 @@ public class StabJob {
             this.refresh();
         }
         for(SlaJobEntity slaJob: slaList){
-            if(slaJob.isVirgoCoverd){
+            if(!slaJob.isVirgoCoverd){
                 returnList.add(slaJob);
             }
         }
