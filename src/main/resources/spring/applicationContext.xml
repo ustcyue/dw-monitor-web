@@ -59,5 +59,7 @@
                         cron="0 30 * * * ?" />
         <task:scheduled ref="slaJob" method="refreshingHis"
                         cron="0 35 11 * * ?" />
+        <task:scheduled ref="stabJob" method="refresh"
+                        cron="0 0 03 * * ?" />
     </task:scheduled-tasks>
 </beans>
