@@ -43,4 +43,7 @@ public interface SlaMapper {
     List<Map<String, Object>> getSlaEvents(@Param("begin") String begin,@Param("end") String end);
     Integer deleteEvent(@Param("eventDate") String eventDate, @Param("eventType") Integer eventType);
     Integer insertSlaEvent(SlaEventEntity slaEventEntity);
+    List<SlaJobEntity> getSlaJobWithKeyTasks();
+    List<Map<String, Object>> getTaskRelations();
+    List<Integer> getVirgoTasks();
 }

@@ -189,7 +189,7 @@ public class SlaAction {
         log.info("inserting new user defined event:" + event.getTitle()) ;
         int id = slaService.insertEvent(event);
         this.jsonObject = new JSONObject();
-        this.jsonObject.put("msg",200);
+        this.jsonObject.put("code",200);
         this.jsonObject.put("id",id);
         return this.jsonObject;
     }

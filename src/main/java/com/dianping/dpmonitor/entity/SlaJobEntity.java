@@ -1,5 +1,10 @@
 package com.dianping.dpmonitor.entity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  * User: yxn
@@ -20,10 +25,13 @@ public class SlaJobEntity {
     private String warnBeginTime;
     private String warnTime;
     private Integer reportStatus;
-
+    public List<Integer> preTaskList = new ArrayList<Integer>();
+    public Map<Integer,Integer> preTaskMap = new HashMap<Integer, Integer>();
+    public boolean isVirgoCoverd = false;
     public Double getJobValue() {
         return jobValue;
     }
+
 
     public void setJobValue(Double jobValue) {
         this.jobValue = jobValue;

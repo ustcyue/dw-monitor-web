@@ -69,6 +69,24 @@
         where a.time_id = #{timeId}
     </select>
 
+    <select id="getSlaJobWithKeyTasks" resultMap="SlaJobEntityMap">
+        SELECT a.sla_id, a.sla_name, a.sla_type, a.job_value,group_concat(b.task_id) key_task_id
+        FROM mn_sla_list a join mn_sla_joblist b on a.sla_id = b.sla_id
+        where a.sla_status = 1
+        group by a.sla_id, a.sla_type, a.job_value
+    </select>
+
+    <select id = "getVirgoTasks" resultType = "int">
+        SELECT b.task_pre_id FROM virgo_task_cfg a
+        join etl_taskrela_cfg b
+        on a.hid = b.task_id
+    </select>
+
+    <select id = "getTaskRelations" resultType = "Map">
+        select task_id, group_concat(task_pre_id) task_pre_ids
+        from etl_taskrela_cfg group by task_id
+    </select>
+
     <select id="getUserEmail" parameterType="String" resultType="String">
         SELECT employee_email
         FROM  acl_authuser_info

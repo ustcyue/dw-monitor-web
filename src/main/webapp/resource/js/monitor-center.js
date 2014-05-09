@@ -3,6 +3,8 @@
  */
 $(function () {
     var slaHis = getSlaHis();
+    var stabCoverRate = getStabCover()*100;
+    var curStabCover = Math.round(stabCoverRate*100/100)
     var xArray = new Array();
     var stabArray = new Array();
     var accuArray = new Array();
@@ -12,8 +14,9 @@ $(function () {
         accuArray[i] = Math.random()*5+95;
         if(i == slaHis.length -1){
             var curStabValue = Math.round(stabArray[i]*100/100);
-            var curAccuValue = Math.round(accuArray[i]*100/100)
+            var curAccuValue = Math.round(accuArray[i]*100/100);
         }
+
     }
     var g = new JustGage({
         id: "slaclk",
@@ -47,6 +50,23 @@ $(function () {
         ]
         ,levelColorsGradient: true
     });
+
+    var g = new JustGage({
+        id: "stabCover",
+        value: curStabCover,
+        min: 0,
+        max: 100,
+        title: "当前DQ覆盖率",
+        titleFontColor:"#000000",
+        label: "%",
+        levelColors:[
+            "#FF0002",
+            "#F9C802",
+            "#A9D70B"
+
+        ]
+        ,levelColorsGradient: true
+    });
     var ctx = $("#myChart").get(0).getContext("2d");
 
     var line_data = {
@@ -54,8 +74,8 @@ $(function () {
         datasets : [
             {
                 fillColor : "rgba(170,170,170,0.6)",
-                strokeColor : "rgba(220,220,220,1)",
-                pointColor : "rgba(220,220,220,1)",
+                strokeColor : "#B56D81",
+                pointColor : "#B56D81",
                 pointStrokeColor : "#fff",
                 data : stabArray
             },
@@ -72,7 +92,12 @@ $(function () {
 
     new Chart(ctx).Line(line_data, {
         bezierCurve: false
+        ,datasetFill: false
     });
+
+    $("#stabCover").click(function(  ){
+        window.open("unCoveredList.html");
+    })
 
 });
 
@@ -99,4 +124,28 @@ function getSlaHis() {
         }
     });
     return slaHis;
+}
+
+function getStabCover(){
+    var coverRate;
+    $.ajax({
+        async: false,
+        cache: false,
+        type: 'get',
+        dataType: "json",
+        url: "rest/stab/getCoverRate",  //请求搜索的路径
+        timeout: 5000,
+        error: function () {              //请求失败处理函数
+            alert("获取数据出错！");
+        },
+        success: function (data) {
+            if(data.code == 200){
+                coverRate = data.rate;
+            }
+            else{
+
+            }
+        }
+    });
+    return coverRate;
 }
