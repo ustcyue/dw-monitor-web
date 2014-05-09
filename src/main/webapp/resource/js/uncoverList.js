@@ -14,6 +14,7 @@ $(document).ready( function () {
                 {"sTitle": "SLA ID"},
                 {"sTitle": "SLA名称"},
                 {"sTitle": "SLA类型"},
+                {"sTitle": "SLA价值"},
                 {"sTitle": "直接前驱任务列表"}
             ],
             "iDisplayLength":100
@@ -84,7 +85,8 @@ function createRow(slaObj) {
     row[0] =  slaObj.slaId;
     row[1] =  slaObj.slaName;
     row[2] = typedesc;
-    row[3] = slaObj.keyTaskId;
+    row[3] =  Math.round(slaObj.jobValue*100)/100;
+    row[4] = slaObj.keyTaskId;
     return row;
 }
 
