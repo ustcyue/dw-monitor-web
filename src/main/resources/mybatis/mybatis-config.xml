@@ -10,6 +10,7 @@
         <typeAlias alias="SlaFailRecordEntity" type="com.dianping.dpmonitor.entity.SlaFailRecordEntity" />
         <typeAlias alias="BottleneckTaskEntity" type="com.dianping.dpmonitor.entity.BottleneckTaskEntity" />
         <typeAlias alias="SlaEventEntity" type="com.dianping.dpmonitor.entity.SlaEventEntity"/>
+        <typeAlias alias="HalleyTaskEntity" type="com.dianping.dpmonitor.entity.HalleyTaskEntity"/>
     </typeAliases>
 
     <typeHandlers>

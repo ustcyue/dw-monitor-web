@@ -1,5 +1,6 @@
 package com.dianping.dpmonitor.action;
 
+import com.dianping.dpmonitor.entity.HalleyTaskEntity;
 import com.dianping.dpmonitor.entity.SlaJobEntity;
 import com.dianping.dpmonitor.job.StabJob;
 import net.sf.json.JSONArray;
@@ -38,6 +39,19 @@ public class StabAction {
     }
 
     @GET
+    @Path("/getHighPrioCoverRate")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JSONObject getHighPrioCoverRate(
+            @Context HttpServletRequest request
+    ){
+        double stabRate = stabJob.calcuHighPrioCoverRate();
+        jsonObject = new JSONObject();
+        jsonObject.put("code",200);
+        jsonObject.put("rate",stabRate);
+        return jsonObject;
+    }
+
+    @GET
     @Path("/refreshCache")
     @Produces(MediaType.APPLICATION_JSON)
     public JSONObject refreashCache(
@@ -55,6 +69,20 @@ public class StabAction {
             @Context HttpServletRequest request
     ){
         List<SlaJobEntity> uncoverJobs =  stabJob.getUntractedSla();
+        JSONArray jArray = new JSONArray();
+        jArray.addAll(uncoverJobs);
+        jsonObject = new JSONObject();
+        jsonObject.put("code",200);
+        jsonObject.put("msg",jArray);
+        return jsonObject;
+    }
+    @GET
+    @Path("/getUntractedHigh")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JSONObject getUntractedHigh(
+            @Context HttpServletRequest request
+    ){
+        List<HalleyTaskEntity> uncoverJobs =  stabJob.getUntractedHigh();
         JSONArray jArray = new JSONArray();
         jArray.addAll(uncoverJobs);
         jsonObject = new JSONObject();

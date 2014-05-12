@@ -1,5 +1,6 @@
 package com.dianping.dpmonitor.job;
 
+import com.dianping.dpmonitor.entity.HalleyTaskEntity;
 import com.dianping.dpmonitor.entity.SlaJobEntity;
 import com.dianping.dpmonitor.mapper.SlaMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,16 @@ public class StabJob {
     @Autowired
     private volatile SlaMapper slaMapper;
     private volatile Map<Integer, String> taskRelaMap = new HashMap<Integer, String>();
+    private volatile Map<Integer, Integer> virgoTaskMap = new HashMap<Integer, Integer>();
     private volatile List<SlaJobEntity> slaList = new ArrayList<SlaJobEntity>();
+    private volatile List<HalleyTaskEntity> highPrioTasks = new ArrayList<HalleyTaskEntity>();
     List<Integer> virgoTaskLists = new ArrayList<Integer>();
     public void refresh(){
         taskRelaMap.clear();
         virgoTaskLists = slaMapper.getVirgoTasks();
+        for(Integer taskId : virgoTaskLists){
+            virgoTaskMap.put(taskId,taskId);
+        }
         slaList = slaMapper.getSlaJobWithKeyTasks();
         List<Map<String, Object>> taskRelas = slaMapper.getTaskRelations();
         for(int i=0; i<taskRelas.size();i++){
@@ -53,6 +59,12 @@ public class StabJob {
                 }
             }
         }
+        highPrioTasks = slaMapper.getHighPrioTasks();
+        for(HalleyTaskEntity task: highPrioTasks){
+            if(virgoTaskMap.containsKey(task.getTaskId())){
+                task.isCovered = true;
+            }
+        }
     }
 
     public double calcuCoverRate(){
@@ -68,6 +80,17 @@ public class StabJob {
         return covered/(double)slaList.size();
     }
 
+    public double calcuHighPrioCoverRate(){
+        if(highPrioTasks.size() == 0){
+            this.refresh();
+        }
+        Integer covered = 0;
+        for(HalleyTaskEntity task: highPrioTasks) {
+            if(task.isCovered)
+                covered ++;
+        }
+        return covered/(double)highPrioTasks.size();
+    }
 
 
     private List<Integer> getAllPreTasks(Integer keyTaskId) {
@@ -101,5 +124,18 @@ public class StabJob {
         }
         return returnList;
 
+    }
+
+    public List<HalleyTaskEntity> getUntractedHigh() {
+        List<HalleyTaskEntity> returnList = new ArrayList<HalleyTaskEntity>();
+        if(highPrioTasks.size() == 0){
+            this.refresh();
         }
+        for(HalleyTaskEntity task: highPrioTasks){
+            if(!task.isCovered){
+                returnList.add(task);
+            }
+        }
+        return returnList;
+    }
 }

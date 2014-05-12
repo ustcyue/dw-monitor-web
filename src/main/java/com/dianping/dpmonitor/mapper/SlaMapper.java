@@ -1,9 +1,6 @@
 package com.dianping.dpmonitor.mapper;
 
-import com.dianping.dpmonitor.entity.BottleneckTaskEntity;
-import com.dianping.dpmonitor.entity.SlaEntity;
-import com.dianping.dpmonitor.entity.SlaEventEntity;
-import com.dianping.dpmonitor.entity.SlaJobEntity;
+import com.dianping.dpmonitor.entity.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -46,4 +43,5 @@ public interface SlaMapper {
     List<SlaJobEntity> getSlaJobWithKeyTasks();
     List<Map<String, Object>> getTaskRelations();
     List<Integer> getVirgoTasks();
+    List<HalleyTaskEntity> getHighPrioTasks();
 }

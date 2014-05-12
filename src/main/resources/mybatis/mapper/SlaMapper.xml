@@ -62,6 +62,12 @@
         <result property="eventType" column="event_type" />
     </resultMap>
 
+    <resultMap id="halleyTaskEntityMap" type="HalleyTaskEntity">
+        <result property="taskId" column="task_id"/>
+        <result property="taskName" column="task_name" />
+        <result property="taskOwner" column="owner" />
+    </resultMap>
+
     <select id="getSlaJobs" resultMap="SlaJobEntityMap">
         SELECT a.sla_id, b.sla_type, b.job_value,a.sla_name,a.predict_time,a.key_task_id,a.task_id,a.task_name,a.task_status,a.warn_begin_time
         ,a.warn_time,a.report_status
@@ -227,4 +233,9 @@
         VALUES
         (#{eventId},#{title},#{eventDate},#{eventType},#{eventLevel},#{startTime},#{endTime})
     </insert>
+
+    <select id="getHighPrioTasks" resultMap="halleyTaskEntityMap">
+        select task_id, task_name, owner from etl_task_cfg where
+        prio_lvl in (0,1) and if_val = 1 and task_name not like "%hive2%"
+    </select>
 </mapper>
