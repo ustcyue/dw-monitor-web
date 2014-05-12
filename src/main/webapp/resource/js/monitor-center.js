@@ -58,7 +58,7 @@ $(function () {
         value: curStabCover,
         min: 0,
         max: 100,
-        title: "当前DQ覆盖率",
+        title: "SLA DQ覆盖率",
         titleFontColor:"#000000",
         label: "%",
         levelColors:[
