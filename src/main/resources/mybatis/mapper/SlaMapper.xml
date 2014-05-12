@@ -236,6 +236,6 @@
 
     <select id="getHighPrioTasks" resultMap="halleyTaskEntityMap">
         select task_id, task_name, owner from etl_task_cfg where
-        prio_lvl in (0,1) and if_val = 1 and task_name not like "%hive2%"
+        prio_lvl in (0,1) and if_val = 1 and task_name not like "%hive2%" and task_group_id not in(7,8)
     </select>
 </mapper>
