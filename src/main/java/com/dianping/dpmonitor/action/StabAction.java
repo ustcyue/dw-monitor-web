@@ -5,6 +5,7 @@ import com.dianping.dpmonitor.entity.SlaJobEntity;
 import com.dianping.dpmonitor.job.StabJob;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ public class StabAction {
     @Autowired
     StabJob stabJob;
     private JSONObject jsonObject;
+    private static Logger log = Logger.getLogger(StabAction.class);
     @GET
     @Path("/getCoverRate")
     @Produces(MediaType.APPLICATION_JSON)
@@ -68,6 +70,7 @@ public class StabAction {
     public JSONObject getUntractedSla(
             @Context HttpServletRequest request
     ){
+        log.info("getting not monitored sla lists");
         List<SlaJobEntity> uncoverJobs =  stabJob.getUntractedSla();
         JSONArray jArray = new JSONArray();
         jArray.addAll(uncoverJobs);
@@ -82,6 +85,7 @@ public class StabAction {
     public JSONObject getUntractedHigh(
             @Context HttpServletRequest request
     ){
+        log.info("getting not monitored high value job list");
         List<HalleyTaskEntity> uncoverJobs =  stabJob.getUntractedHigh();
         JSONArray jArray = new JSONArray();
         jArray.addAll(uncoverJobs);

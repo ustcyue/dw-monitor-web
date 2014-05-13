@@ -56,9 +56,9 @@
     <task:annotation-driven/>
     <task:scheduled-tasks>
         <task:scheduled ref="slaJob" method="refreshing"
-                        cron="0 30 * * * ?" />
+                        cron="30 */10 * * * ?" />
         <task:scheduled ref="slaJob" method="refreshingHis"
-                        cron="0 35 11 * * ?" />
+                        cron="0 30 00 * * ?" />
         <task:scheduled ref="stabJob" method="refresh"
                         cron="0 0 03 * * ?" />
     </task:scheduled-tasks>

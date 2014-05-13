@@ -61,6 +61,7 @@ public class SlaAction {
             @DefaultValue("aa") @PathParam("date") String date,
             @Context HttpServletRequest request
     ) {
+        log.info("getting sla lists date:"+ date);
         if(date.equals("aa")){
             date = new DateTime().toString("yyyy-MM-dd");
         }
@@ -143,6 +144,7 @@ public class SlaAction {
     public JSONObject getSlaStatusHis(
         @Context HttpServletRequest request
     ){
+        log.info("monitor-center refreshing");
         List<Map<String, Object>> slaHis = slaService.getSlaStatusHis();
         if(slaHis.size() == 0){
             throw new RuntimeException("sla历史状态信息获取失败");
@@ -161,6 +163,7 @@ public class SlaAction {
             ,@DefaultValue("aa") @PathParam("end") String end
             ,@Context HttpServletRequest request
     ){
+        log.info("getting event list: start:"+start+" end:" + end);
         List<Map<String, Object>> slaEvents = slaService.getEvents(start, end);
         JSONArray jArray = JSONArray.fromObject(slaEvents.toArray());
         this.jsonObject = CommonUtil.getPubJson(jArray);
