@@ -1,8 +1,11 @@
 package com.dianping.dpmonitor.job;
 
 import com.dianping.dpmonitor.entity.HalleyTaskEntity;
+import com.dianping.dpmonitor.entity.SlaEventEntity;
 import com.dianping.dpmonitor.entity.SlaJobEntity;
 import com.dianping.dpmonitor.mapper.SlaMapper;
+import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +27,14 @@ public class StabJob {
     private volatile List<SlaJobEntity> slaList = new ArrayList<SlaJobEntity>();
     private volatile List<HalleyTaskEntity> highPrioTasks = new ArrayList<HalleyTaskEntity>();
     List<Integer> virgoTaskLists = new ArrayList<Integer>();
+    List<Integer> failTasks = new ArrayList<Integer>();
+    private static Logger logger = Logger.getLogger(StabJob.class);
     public void refresh(){
+        double delayValue = 0;
+        String today = new DateTime().toString("yyyy-MM-dd");
         taskRelaMap.clear();
         virgoTaskLists = slaMapper.getVirgoTasks();
+        failTasks = slaMapper.getFailedVirgoTasks();
         for(Integer taskId : virgoTaskLists){
             virgoTaskMap.put(taskId,taskId);
         }
@@ -58,12 +66,47 @@ public class StabJob {
                     break;
                 }
             }
+            List<Integer> keydqTasks = new ArrayList<Integer>();
+            for(Integer taskId:failTasks){
+                if(slaJob.preTaskMap.containsKey(taskId)){
+                    slaJob.dqFail = true;
+                    keydqTasks.add(taskId);
+                    delayValue += slaJob.getJobValue();
+                }
+            }
+            if(slaJob.dqFail){
+                slaJob.setKeyDqTaskId(keydqTasks.toString());
+            }
         }
         highPrioTasks = slaMapper.getHighPrioTasks();
         for(HalleyTaskEntity task: highPrioTasks){
             if(virgoTaskMap.containsKey(task.getTaskId())){
                 task.isCovered = true;
             }
+        }
+        slaMapper.deleteEvent(today, 4);
+        String failLevel =
+                delayValue < 100 ? "NA" :
+                        delayValue < 200 ? "P5" :
+                                delayValue < 400 ? "P4" :
+                                        delayValue < 600 ? "P3" :
+                                                delayValue < 800 ? "P2" :
+                                                        "P1";
+        if (!failLevel.equals("NA")) {
+            String title = "一致性" + failLevel + "故障";
+            int eventLevel = failLevel.compareTo("P3") >= 0 ? 1 : 2;
+            long startTime = new DateTime().getMillis()/1000;
+            long endTIme = startTime;
+            int eventType = 4;
+            SlaEventEntity event = new SlaEventEntity();
+            event.setTitle(title);
+            event.setEventDate(today);
+            event.setStartTime(startTime);
+            event.setEndTime(endTIme);
+            event.setEventLevel(eventLevel);
+            event.setEventType(eventType);
+            slaMapper.insertSlaEvent(event);
+            logger.info("insert new Event:" + title);
         }
     }
 
@@ -79,6 +122,20 @@ public class StabJob {
         System.out.println(covered);
         return covered/(double)slaList.size();
     }
+    public double calcuStabRate(){
+        if(slaList.size() == 0){
+            this.refresh();
+        }
+        Integer stabNum = 0;
+        for(SlaJobEntity slaJob: slaList) {
+            if(!slaJob.dqFail)
+                stabNum ++;
+        }
+        System.out.println(stabNum);
+        return stabNum/(double)slaList.size();
+    }
+
+
 
     public double calcuHighPrioCoverRate(){
         if(highPrioTasks.size() == 0){
@@ -123,7 +180,6 @@ public class StabJob {
             }
         }
         return returnList;
-
     }
 
     public List<HalleyTaskEntity> getUntractedHigh() {
@@ -138,4 +194,33 @@ public class StabJob {
         }
         return returnList;
     }
+
+    public List<SlaJobEntity> getUnAccuLists() {
+        List<SlaJobEntity> returnList = new ArrayList<SlaJobEntity>();
+        if(slaList.size() == 0){
+            this.refresh();
+        }
+        for(SlaJobEntity slaJob: slaList){
+            if(slaJob.dqFail){
+                returnList.add(slaJob);
+            }
+        }
+        return returnList;
+    }
+
+
+    public void insertAccuHis(){
+        DateTime now = new DateTime();
+        double accurate = this.calcuStabRate();
+        slaMapper.deleteAccuHis(now.toString("yyyy-MM-dd"));
+        slaMapper.insertAccuHis(accurate,now.toString("yyyy-MM-dd"));
+    }
+
+    public List<Map<String, Object>> getAccuHis(){
+        DateTime now = new DateTime();
+        now = now.minusDays(10);
+        String timeId = now.toString("yyyy-MM-dd");
+        return slaMapper.getAccuHis(timeId);
+    }
+
 }

@@ -88,6 +88,16 @@
         on a.hid = b.task_id
     </select>
 
+    <select id = "getFailedVirgoTasks" resultType = "int">
+        SELECT b.task_pre_id FROM virgo_task_cfg a
+        join etl_taskrela_cfg b
+        on a.hid = b.task_id
+        join etl_task_status c
+        on b.task_id = c.task_id and c.time_id = date_format(now(),'%Y-%m-%d')
+        where c.status = -1
+    </select>
+
+
     <select id = "getTaskRelations" resultType = "Map">
         select task_id, group_concat(task_pre_id) task_pre_ids
         from etl_taskrela_cfg group by task_id
@@ -233,9 +243,24 @@
         VALUES
         (#{eventId},#{title},#{eventDate},#{eventType},#{eventLevel},#{startTime},#{endTime})
     </insert>
-
     <select id="getHighPrioTasks" resultMap="halleyTaskEntityMap">
         select task_id, task_name, owner from etl_task_cfg where
         prio_lvl in (0,1) and if_val = 1 and task_name not like "%hive2%" and task_group_id not in(7,8)
+    </select>
+    <insert id="insertAccuHis" parameterType="Map">
+        INSERT INTO mn_sla_accu_his
+        (time_id, accu_rate)
+        VALUES
+        (#{timeId}, #{accuRate})
+    </insert>
+    <delete id="deleteAccuHis" parameterType="Map">
+        delete from mn_sla_accu_his where
+        time_id = #{timeId}
+    </delete>
+    <select id="getAccuHis" parameterType="Map" resultType="Map">
+        select DATE_FORMAT(time_id,'%Y-%m-%d') time_id,accu_rate
+        from
+        mn_sla_accu_his where time_id >#{timeId}
+        order by time_id
     </select>
 </mapper>

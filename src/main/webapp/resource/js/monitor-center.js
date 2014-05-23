@@ -3,9 +3,11 @@
  */
 $(function () {
     var slaHis = getSlaHis();
-    var stabCoverRate = getStabCover()*100;
+    var accuHis = getAccuHis();
+    var stab = getStabCover();
     var highPrioCoverRate = getHighPrioCover()*100
-    var curStabCover = Math.round(stabCoverRate*100/100)
+    var curStabCover = Math.round(stab.rate*10000/100)
+    var curStabRate =  Math.round(stab.stabRate*10000/100)
     var curhighPrioCoverRate = Math.round(highPrioCoverRate*100/100)
     var xArray = new Array();
     var stabArray = new Array();
@@ -13,12 +15,11 @@ $(function () {
     for(var i = 0; i<slaHis.length; i++){
         xArray[i] = slaHis[i].time_id;
         stabArray[i] = slaHis[i].succ_rate*100;
-        accuArray[i] = Math.random()*5+95;
+        accuArray[i] = accuHis[i].accu_rate*100;
         if(i == slaHis.length -1){
             var curStabValue = Math.round(stabArray[i]*100/100);
             var curAccuValue = Math.round(accuArray[i]*100/100);
         }
-
     }
     var g = new JustGage({
         id: "slaclk",
@@ -38,7 +39,7 @@ $(function () {
     });
     var g = new JustGage({
         id: "stabclk",
-        value: curAccuValue,
+        value: curStabRate,
         min: 0,
         max: 100,
         title: "当前数据一致率",
@@ -113,6 +114,12 @@ $(function () {
         bezierCurve: false
         ,datasetFill: false
     });
+    $("#slaclk").click(function(  ){
+        window.open("slaJob-status.html");
+    });
+    $("#stabclk").click(function(  ){
+        window.open("unCoveredList.html?type=accu");
+    });
 
     $("#stabCover").click(function(  ){
         window.open("unCoveredList.html?type=sla");
@@ -148,6 +155,30 @@ function getSlaHis() {
     return slaHis;
 }
 
+function getAccuHis() {
+    var slaHis;
+    $.ajax({
+        async: false,
+        cache: false,
+        type: 'get',
+        dataType: "json",
+        url: "rest/stab/getAccuHis",  //请求搜索的路径
+        timeout: 5000,
+        error: function () {              //请求失败处理函数
+            alert("获取数据出错！");
+        },
+        success: function (data) {
+            if(data.code == 200){
+                slaHis = data.msg;
+            }
+            else{
+
+            }
+        }
+    });
+    return slaHis;
+}
+
 function getStabCover(){
     var coverRate;
     $.ajax({
@@ -162,7 +193,7 @@ function getStabCover(){
         },
         success: function (data) {
             if(data.code == 200){
-                coverRate = data.rate;
+                coverRate = data;
             }
             else{
 

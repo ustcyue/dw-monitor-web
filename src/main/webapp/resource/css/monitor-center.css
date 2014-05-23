@@ -18,3 +18,7 @@
     float: left;
     display: inline-block;
 }
+
+.clickable:hover{
+    cursor: pointer;
+}

@@ -173,7 +173,7 @@ public class SlaAction {
     @POST
     @Path("/InsertEvent")
     @Produces(MediaType.APPLICATION_JSON)
-    public Map<String, Object> updateMart(
+    public Map<String, Object> InsertEvent(
             @DefaultValue("") @FormParam("title") String title,
             @DefaultValue("0") @FormParam("start") long start,
             @DefaultValue("0") @FormParam("end") long end,

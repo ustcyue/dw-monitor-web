@@ -3,8 +3,19 @@ $(function() {
         var d = date.getDate();
         var m = date.getMonth();
         var y = date.getFullYear();
-
-        var calendar = $('#calendar').fullCalendar({
+    $('#timepicker1').datetimepicker({
+        minuteStepping:5,
+        pick12HourFormat: false
+    }).next().on(ace.click_event, function(){
+        $(this).prev().focus();
+    });
+    $('#timepicker2').datetimepicker({
+        minuteStepping:5,
+        pick12HourFormat: false
+    }).next().on(ace.click_event, function(){
+        $(this).prev().focus();
+    });
+    var calendar = $('#calendar').fullCalendar({
             buttonText: {
                 prev: '<i class="icon-chevron-left"></i>',
                 next: '<i class="icon-chevron-right"></i>'
@@ -84,6 +95,10 @@ $(function() {
                 if(calEvent.type == 1) {
                     url = "slaJob-status.html?date=" + calEvent.start.Format("yyyy-MM-dd");
                     window.open(url);
+                }else{
+                    $("#dialog-message").dialog({
+                        width:800
+                    });
                 }
             },
             lazyFetching: false

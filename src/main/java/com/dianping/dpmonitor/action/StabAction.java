@@ -15,6 +15,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xiaoning.yue on 2014/5/9.
@@ -33,10 +34,12 @@ public class StabAction {
     public JSONObject getCoverRate(
             @Context HttpServletRequest request
     ){
-        double stabRate = stabJob.calcuCoverRate();
+        double stabCovRate = stabJob.calcuCoverRate();
+        double stabRate = stabJob.calcuStabRate();
         jsonObject = new JSONObject();
         jsonObject.put("code",200);
-        jsonObject.put("rate",stabRate);
+        jsonObject.put("rate",stabCovRate);
+        jsonObject.put("stabRate", stabRate);
         return jsonObject;
     }
 
@@ -94,5 +97,36 @@ public class StabAction {
         jsonObject.put("msg",jArray);
         return jsonObject;
     }
+    @GET
+    @Path("/getUnAccuLists")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JSONObject getUnAccuLists(
+            @Context HttpServletRequest request
+    ){
+        log.info("getting unAccuLists");
+        List<SlaJobEntity> uncoverJobs =  stabJob.getUnAccuLists();
+        JSONArray jArray = new JSONArray();
+        jArray.addAll(uncoverJobs);
+        jsonObject = new JSONObject();
+        jsonObject.put("code",200);
+        jsonObject.put("msg",jArray);
+        return jsonObject;
+    }
 
+
+    @GET
+    @Path("/getAccuHis")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JSONObject getAccuHis(
+            @Context HttpServletRequest request
+    ){
+        log.info("getting not monitored high value job list");
+        List<Map<String, Object>> stabHis = stabJob.getAccuHis();
+        JSONArray jArray = new JSONArray();
+        jArray.addAll(stabHis);
+        jsonObject = new JSONObject();
+        jsonObject.put("code",200);
+        jsonObject.put("msg",jArray);
+        return jsonObject;
+    }
 }

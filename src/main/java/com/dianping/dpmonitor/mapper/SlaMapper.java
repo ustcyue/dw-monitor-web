@@ -44,4 +44,8 @@ public interface SlaMapper {
     List<Map<String, Object>> getTaskRelations();
     List<Integer> getVirgoTasks();
     List<HalleyTaskEntity> getHighPrioTasks();
+    List<Integer> getFailedVirgoTasks();
+    Integer insertAccuHis(@Param("accuRate") Double accuRate,@Param("timeId") String timeId);
+    Integer deleteAccuHis(@Param("timeId") String timeId);
+    List<Map<String,Object>> getAccuHis(@Param("timeId") String timeId);
 }

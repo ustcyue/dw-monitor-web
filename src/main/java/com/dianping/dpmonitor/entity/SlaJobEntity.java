@@ -19,6 +19,7 @@ public class SlaJobEntity {
     private Double jobValue;
     private String finishTime;
     private String keyTaskId;
+    private String keyDqTaskId;
     private Integer keyPreTaskId;
     private String KeyPreTaskName;
     private Integer keyPreStatus;
@@ -28,10 +29,18 @@ public class SlaJobEntity {
     public List<Integer> preTaskList = new ArrayList<Integer>();
     public Map<Integer,Integer> preTaskMap = new HashMap<Integer, Integer>();
     public boolean isVirgoCoverd = false;
+    public boolean dqFail = false;
     public Double getJobValue() {
         return jobValue;
     }
 
+    public String getKeyDqTaskId() {
+        return keyDqTaskId;
+    }
+
+    public void setKeyDqTaskId(String keyDqTaskId) {
+        this.keyDqTaskId = keyDqTaskId;
+    }
 
     public void setJobValue(Double jobValue) {
         this.jobValue = jobValue;

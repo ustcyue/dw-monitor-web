@@ -21,6 +21,7 @@ public class SlaJob {
     public void refreshing() {
         logger.info("refreshing");
         String today = new DateTime().toString("yyyy-MM-dd");
+        slaMapper.deleteEvent(today, 1);
         List<SlaJobEntity> slaJobs = slaMapper.getSlaJobs(today);
         double delayValue = 0;
         for (SlaJobEntity slaJob : slaJobs) {
@@ -38,7 +39,6 @@ public class SlaJob {
         if (!failLevel.equals("NA")) {
             String title = "稳定性" + failLevel + "故障";
             int eventLevel = failLevel.compareTo("P3") >= 0 ? 1 : 2;
-            slaMapper.deleteEvent(today, 1);
             long startTime = new DateTime().getMillis()/1000;
             long endTIme = startTime;
             int eventType = 1;

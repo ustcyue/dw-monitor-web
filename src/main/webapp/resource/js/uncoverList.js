@@ -26,6 +26,16 @@ $(document).ready( function () {
             {"sTitle": "task 名称"},
             {"sTitle": "task owner"}
         ];
+    }else if(unCoverListCover == "accu"){
+        $("#table_show_name").html("一致性有误SLA任务列表");
+        $(".table-header").html("一致性有误SLA任务列表");
+        aoColumns = [
+            {"sTitle": "SLA ID"},
+            {"sTitle": "SLA名称"},
+            {"sTitle": "SLA类型"},
+            {"sTitle": "SLA价值"},
+            {"sTitle": "报错DQ列表"}
+        ];
     }
     var table = $('#sla-dataTable').DataTable(
         {
@@ -42,7 +52,9 @@ function getSlaData(){
     if(unCoverListCover == "sla")
        url =  "rest/stab/getUntractedSla";
     else if(unCoverListCover == "high")
-        url = "rest/stab/getUntractedHigh"
+        url = "rest/stab/getUntractedHigh";
+    else if(unCoverListCover == "accu")
+        url = "rest/stab/getUnAccuLists"
     var slaArray = new Array();
     $.ajax({
         async: false,
@@ -82,7 +94,7 @@ function dataPresent(datas) {
 
 function createRow(slaObj) {
     var row = new Array();
-    if(unCoverListCover == "sla") {
+    if(unCoverListCover == "sla" || unCoverListCover == "accu") {
         var type = slaObj.slaType;
         var typedesc = "";
         switch (type) {
@@ -106,7 +118,10 @@ function createRow(slaObj) {
         row[1] = slaObj.slaName;
         row[2] = typedesc;
         row[3] = Math.round(slaObj.jobValue * 100) / 100;
-        row[4] = slaObj.keyTaskId;
+        if(unCoverListCover == "sla")
+            row[4] = slaObj.keyTaskId;
+        else
+            row[4] = slaObj.keyDqTaskId;
     }else if(unCoverListCover == "high"){
         row[0] = slaObj.taskId;
         row[1] = slaObj.taskName;

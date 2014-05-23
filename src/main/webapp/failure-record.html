@@ -10,7 +10,7 @@
     <script type="text/javascript" src="resource/js/lib/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="lib/ace/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="lib/ace/css/bootstrap.min.css"/>
-    <script type="text/javascript" src="lib/ace/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="lib/ace/js/jquery-ui-1.10.3.full.min.js"></script>
     <script type="text/javascript" src="lib/ace/js/jquery.ui.touch-punch.min.js"></script>
     <script type="text/javascript" src="lib/ace/js/fullcalendar.min.js"></script>
     <script type="text/javascript" src="lib/ace/js/bootbox.min.js"></script>
@@ -22,17 +22,19 @@
     <link rel="stylesheet" href="lib/ace/css/fullcalendar.css" />
     <link rel="stylesheet" href="lib/ace/css/font-awesome.min.css"/>
     <script type="text/javascript" src="resource/js/failure-record.js"></script>
+    <script type="text/javascript" src="resource/js/lib/moment.js"></script>
+    <script type="text/javascript" src="lib/ace/js/bootstrap-timepicker.min.js"></script>
     <script type="text/javascript" src="resource/js/dpmonitor-common.js"></script>
     <!-- page specific plugin styles -->
 
     <!-- fonts -->
     <link rel="stylesheet" href="lib/ace/css/ace-fonts.css"/>
-
+    <link rel="stylesheet" href="lib/ace/css/jquery-ui-1.10.3.full.min.css">
     <!-- ace styles -->
     <link rel="stylesheet" href="lib/ace/css/ace.min.css"/>
     <link rel="stylesheet" href="lib/ace/css/ace-rtl.min.css"/>
     <link rel="stylesheet" href="lib/ace/css/ace-skins.min.css"/>
-
+    <link rel="stylesheet" href="lib/ace/css/bootstrap-timepicker.css"/>
     <link rel="stylesheet" href="resource/css/monitor-center.css">
     <style>
         #sla-dataTable_wrapper > div.row {
@@ -167,6 +169,51 @@
         <a class="close" onclick="$(this).parent().hide()">×</a>
         test
     </div>
+    <div id="dialog-message" class="" style="display: none; margin-top: 20px">
+        <form class="form-horizontal" role="form">
+            <div class="form-group"  style="height: 160px">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 事件描述 </label>
+                <div class="col-sm-8">
+                    <textarea class='form-control ' id='form-field-8' placeholder='Default Text' rows = "7"></textarea>
+                </div>
+            </div>
+            <div class="form-group" style="height: 30px">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 开始时间 </label>
+                <div class="col-sm-8">
+                    <div class="input-group bootstrap-timepicker">
+                        <input id="timepicker1" date-date-format = "YYYY-MM-DD hh:mm A/PM" type="text" class="form-control" />
+															<span class="input-group-addon">
+																<i class="icon-time bigger-110"></i>
+															</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 结束时间 </label>
+                <div class="col-sm-8">
+                    <div class="input-group bootstrap-timepicker">
+                        <input id="timepicker2" date-date-format = "YYYY-MM-DD hh:mm A/PM" type="text" class="form-control" />
+															<span class="input-group-addon">
+																<i class="icon-time bigger-110"></i>
+															</span>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix form-actions">
+                <div class="col-md-offset-3 col-md-9">
+                    <button class="btn btn-info" type="button">
+                        <i class="icon-ok bigger-110"></i>
+                        Submit
+                    </button>
+                    &nbsp; &nbsp; &nbsp;
+                    <button class="btn" type="reset">
+                        <i class="icon-undo bigger-110"></i>
+                        Reset
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div><!-- #dialog-message -->
     <div style="">
         <div class="page-header position-relative" style="padding-top: 20px">
             <h1>故障记录</h1>
