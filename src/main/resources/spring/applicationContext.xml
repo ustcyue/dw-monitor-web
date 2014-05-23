@@ -62,6 +62,6 @@
         <task:scheduled ref="stabJob" method="refresh"
                         cron="20 */10 * * * ?" />
         <task:scheduled ref="stabJob" method="insertAccuHis"
-                        cron="3  30 09 * ?" />
+                        cron="3 30 09 * * ?" />
     </task:scheduled-tasks>
 </beans>
