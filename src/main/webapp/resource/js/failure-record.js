@@ -96,7 +96,60 @@ $(function() {
                     url = "slaJob-status.html?date=" + calEvent.start.Format("yyyy-MM-dd");
                     window.open(url);
                 }else{
+                    $("#event_describe").val(calEvent.title);
+                    $('#timepicker1').data("DateTimePicker").setDate(calEvent.start.Format("MM/dd/yyyy hh:mm"))
+                    $('#timepicker2').data("DateTimePicker").setDate(calEvent.end.Format("MM/dd/yyyy hh:mm"))
+                    $e.click({
+                        key: 1
+                    }, function(e) {
+                        console.log(e.data);
+                    });
+                    $("#submitButton").onclick = function(){
+                        $.ajax({
+                            type: 'POST',
+                            dataType: "json",
+                            contentType: 'application/json',
+                            url: "rest/sla/InsertEvent",
+                            data: {
+                                title: title,
+                                start: start.getTime() / 1000,
+                                end: end.getTime() / 1000,
+                                type: allDay ? 2 : 3,
+                                level: 0
+                            },
+                            error: function () {
+                                alertChanged($('#Alert'), "alert-danger", "事件更新失败!");
+                                $('#Alert').show();
+                                setTimeout(function () {
+                                    $('#Alert').hide();
+                                }, 3000);
+                                return;
+                            },
+                            success: function (data) {
+                                var res = data;
+                                if ($('#Alert').hasClass('alert-danger')) {
+                                    $('#Alert').removeClass('alert-danger');
+                                }
+                                alertChanged($('#Alert'), "alert-success", "事件更新成功!");
+                                $('#Alert').show();
+                                //更新提示提示在3s后消失
+                                setTimeout(function () {
+                                    $('#Alert').hide();
+                                }, 3000);
+                                calendar.fullCalendar('renderEvent',
+                                    {
+                                        id: res.id,
+                                        title: title,
+                                        start: start,
+                                        end: end,
+                                        allDay: allDay
+                                    }
+                                );
+                            }
+                        });
+                    }
                     $("#dialog-message").dialog({
+                        title:"修改事件",
                         width:800
                     });
                 }

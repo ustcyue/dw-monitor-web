@@ -114,17 +114,17 @@ $(function () {
         bezierCurve: false
         ,datasetFill: false
     });
-    $("#slaclk").click(function(  ){
+    $("#slaclk").click(function(){
         window.open("slaJob-status.html");
     });
-    $("#stabclk").click(function(  ){
+    $("#stabclk").click(function(){
         window.open("unCoveredList.html?type=accu");
     });
 
-    $("#stabCover").click(function(  ){
+    $("#stabCover").click(function(){
         window.open("unCoveredList.html?type=sla");
     });
-    $("#highPrioStabCover").click(function(  ){
+    $("#highPrioStabCover").click(function(){
         window.open("unCoveredList.html?type=high");
     })
 
