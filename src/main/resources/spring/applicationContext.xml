@@ -17,8 +17,8 @@
     <context:component-scan base-package="com.dianping.dpmonitor"/>
     <aop:aspectj-autoproxy/>
 
-    <context:property-placeholder location="classpath:spring/dbconf_online.properties" />
-    <!--<context:property-placeholder location="classpath:spring/dbconf.properties"/>-->
+    <!--<context:property-placeholder location="classpath:spring/dbconf_online.properties" />-->
+    <context:property-placeholder location="classpath:spring/dbconf.properties"/>
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="${jdbc.driver}"></property>
         <property name="jdbcUrl" value="${jdbc.url}"></property>
@@ -63,5 +63,7 @@
                         cron="20 */10 * * * ?" />
         <task:scheduled ref="stabJob" method="insertAccuHis"
                         cron="3 30 09 * * ?" />
+        <task:scheduled ref="stabJob" method="insertAccuHis"
+                        cron="01 00 00 * * ?" />
     </task:scheduled-tasks>
 </beans>
