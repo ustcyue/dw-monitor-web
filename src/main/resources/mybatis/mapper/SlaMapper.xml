@@ -88,6 +88,13 @@
         on a.hid = b.task_id
     </select>
 
+    <select id = "getDQCTasks" resultType = "int">
+SELECT b.task_id
+FROM (SELECT McTableID table_id FROM DQC_Table GROUP BY tableName)a
+JOIN mc_data_task_map b
+ON a.table_id = b.table_id
+    </select>
+
     <select id = "getFailedVirgoTasks" resultType = "int">
         SELECT b.task_pre_id FROM virgo_task_cfg a
         join etl_taskrela_cfg b
@@ -97,6 +104,14 @@
         where c.status = -1
     </select>
 
+    <select id = "getFailedDQCTasks" parameterType="Map" resultType = "int">
+SELECT b.task_id FROM
+(SELECT tableID FROM DQC_JobHistory a WHERE ScheduleTime = #{timeId} AND (SELECT COUNT(1) FROM DQC_JobHistory
+WHERE ScheduleTime = #{timeId} AND tableID = a.TableID AND jobID >=a.JobID) = 1 AND STATUS >= 21) a
+JOIN
+(SELECT b.task_id, a.tableID FROM (SELECT McTableID table_id, tableID FROM DQC_Table GROUP BY TableID)a JOIN mc_data_task_map b ON a.table_id = b.table_id) b
+ON a.tableID = b.tableID
+    </select>
 
     <select id = "getTaskRelations" resultType = "Map">
         select task_id, group_concat(task_pre_id) task_pre_ids

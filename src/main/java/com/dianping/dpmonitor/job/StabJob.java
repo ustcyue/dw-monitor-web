@@ -32,9 +32,12 @@ public class StabJob {
     public void refresh(){
         double delayValue = 0;
         String today = new DateTime().toString("yyyy-MM-dd");
+        String yesterday = new DateTime().minusDays(1).toString("yyyy-MM-dd");
         taskRelaMap.clear();
         virgoTaskLists = slaMapper.getVirgoTasks();
+        virgoTaskLists.addAll(slaMapper.getDQCTasks());
         failTasks = slaMapper.getFailedVirgoTasks();
+        failTasks.addAll(slaMapper.getFailedDQCTasks(yesterday));
         for(Integer taskId : virgoTaskLists){
             virgoTaskMap.put(taskId,taskId);
         }
