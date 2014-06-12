@@ -107,7 +107,7 @@ ON a.table_id = b.table_id
     <select id = "getFailedDQCTasks" parameterType="Map" resultType = "int">
 SELECT b.task_id FROM
 (SELECT tableID FROM DQC_JobHistory a WHERE ScheduleTime = #{timeId} AND (SELECT COUNT(1) FROM DQC_JobHistory
-WHERE ScheduleTime = #{timeId} AND tableID = a.TableID AND jobID >=a.JobID) = 1 AND STATUS >= 21) a
+WHERE ScheduleTime = #{timeId} AND tableID = a.TableID AND jobID >=a.JobID) = 1 AND STATUS >= 21 and STATUS != 30 and AddUser = "schedule") a
 JOIN
 (SELECT b.task_id, a.tableID FROM (SELECT McTableID table_id, tableID FROM DQC_Table GROUP BY TableID)a JOIN mc_data_task_map b ON a.table_id = b.table_id) b
 ON a.tableID = b.tableID
